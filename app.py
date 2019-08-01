@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
+from dbconnect import connection
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -26,6 +28,18 @@ def login():
           else:
                error = "Invalid credentials, try again..."
      return render_template("/login.html", error=error)
+
+
+@app.route("/register", methods=['GET','POST'])
+def register_page():
+     try:
+          c, conn = connection()
+          return "ok"
+     except Exception as e:
+          return(str(e))
+
+
+
 
 
 
