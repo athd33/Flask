@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<body>
+
+<div class="container">
+        <br>
+            <h4 style="margin-top: 10%">Please login:</h4>
+        <br>
+    <form action="" class="form-inline" method="post" id="loginForm">
+        <input type="text" class="form-control" placeholder="Username" name="username" value='{{request.form.username}}'>
+        <input type="password" class="form-control" placeholder="Password" name="password" value='{{request.form.password}}'>
+        <input class="btn btn-success" type="submit" value="Login">
+    </form>
+</div>
+<h4>{{error}}</h4>
+</body>
+{% endblock content %}
+
