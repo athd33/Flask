@@ -1,15 +1,17 @@
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, \
+    session
 from dbconnect import connection
 from passlib.hash import sha256_crypt
 from pymysql import escape_string as thwart
+import datetime
 
 app = Flask(__name__)
-
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("/home.html", message="Home page")
+    now = datetime.datetime.now()
+    return render_template("/home.html", message="Home page", now=now)
 
 
 @app.route("/search")
@@ -20,6 +22,7 @@ def search():
 @app.route("/about")
 def about():
     return render_template("/about.html", message="About page")
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -45,13 +48,6 @@ def register_page():
             return render_template('search.html', username=username)
 
     return render_template('/register.html', error=error)
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
