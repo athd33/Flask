@@ -23,6 +23,11 @@ def search():
 def about():
     return render_template("/about.html", message="About page")
 
+@app.route("/categories")
+def categories():
+    return render_template("/categories.html", message="Categories")
+
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
