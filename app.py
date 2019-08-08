@@ -54,17 +54,17 @@ def register_page():
         username = request.form['username']
         psswd = request.form['password']
         confirm = request.form['confirm']
+        if username != "" and psswd != "":
+            if psswd == confirm:
+                hashed = sha256_crypt.encrypt(str(psswd))
+                
+                sql = 'INSERT INTO users (login, password) VALUES (%s,%s)'
+                val = (f'{username}', f'{hashed}')
+                c.execute(sql, val)
+                conn.commit()
+                conn.close()
 
-        if psswd == confirm:
-            hashed = sha256_crypt.encrypt(str(psswd))
-            
-            sql = 'INSERT INTO users (login, password) VALUES (%s,%s)'
-            val = (f'{username}', f'{hashed}')
-            c.execute(sql, val)
-            conn.commit()
-            conn.close()
-
-            return render_template('search.html', username=username)
+                return render_template('search.html', username=username)
 
     return render_template('/register.html', error=error)
 
