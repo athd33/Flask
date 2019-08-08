@@ -1,10 +1,14 @@
 import pymysql
 
 
-def connection():
+def requestConnection():
     conn = pymysql.connect(host="localhost",
                             user = "root",
                             passwd="Antoine",
-                            db="pythonprogramming")
+                            db="foodappdb")
+    return conn
+
+
+def requestCursor(conn):
     c = conn.cursor()
-    return c, conn
+    return c

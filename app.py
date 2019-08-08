@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, url_for, redirect, \
+from flask import Flask, render_template, request, url_for, redirect, flash, \
     session
-from dbconnect import connection
+from dbconnect import *
 from passlib.hash import sha256_crypt
 from pymysql import escape_string as thwart
 import datetime
@@ -33,8 +33,9 @@ def categories():
 def login():
     error = ""
     if request.method == "POST":
-        attempted_username = request.form['username']
-        attempted_password = request.form['password']
+        name = request.form['username']
+        psswd = request.form['password']
+        hashed = sha256_crypt.encrypt(str(psswd))
 
         if attempted_username == "admin" and attempted_password == "password":
             return redirect(url_for('search'))
@@ -46,10 +47,23 @@ def login():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():
+    conn = requestConnection()
+    c = requestCursor(conn)
     error = ""
     if request.method == "POST":
         username = request.form['username']
-        if username != "":
+        psswd = request.form['password']
+        confirm = request.form['confirm']
+
+        if psswd == confirm:
+            hashed = sha256_crypt.encrypt(str(psswd))
+            
+            sql = 'INSERT INTO users (login, password) VALUES (%s,%s)'
+            val = (f'{username}', f'{hashed}')
+            c.execute(sql, val)
+            conn.commit()
+            conn.close()
+
             return render_template('search.html', username=username)
 
     return render_template('/register.html', error=error)

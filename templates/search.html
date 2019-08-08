@@ -1,21 +1,21 @@
     {% extends 'layout.html'%}
     
     {% block search%}
-    <div class="container p-bground"><strong>{{username}}</strong><br><br>
-    Vous souhaitez remplacer un aliment? <br>Cliquez sur rechercher:<br>
-    </p></div></div></br>
+    <div class="container p-bground"><strong>{{username}}</strong><br>
+   <h5> Quel aliment souhaitez-vous remplacer? </h5><br>
+    </p></div></div>
 
     <form class="form-inline md-form mr-auto mb-4 d-flex justify-content-center" id="mainForm">
     
-        <a class="btn btn-primary" href="/categories" role="button">Rechercher</a>
+        <a class="btn btn-primary" href="/categories" role="button">Cliquez pour rechercher</a>
     </form>
     <br>
     <div class="card text-center">
         <div class="card-header">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Vous souhaitez consulter l'historique des recherches?</h5>
-          <a class="btn btn-primary" href="/home" role="button">Retrouver mes aliments substitués</a>
+          <h5 class="card-title"></h5>
+          <a class="btn btn-success" href="/home" role="button">Retrouver mes aliments substitués</a>
         </div>
         <div class="card-footer text-muted">
         </div>
